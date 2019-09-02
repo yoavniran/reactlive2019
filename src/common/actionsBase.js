@@ -48,7 +48,7 @@ export const createDispatcher = (dispatch) =>
 export const createCustomCreator = (func) => {
     const actionCreator = (...args) =>
         (dispatch, getState) =>
-            func(...args, getState, createDispatcher(dispatch), dispatch);
+            func(...args, getState, createDispatcher(dispatch));
 
     actionCreator._customAC = true;
 

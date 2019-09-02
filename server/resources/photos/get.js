@@ -22,7 +22,7 @@ module.exports = (req, info) => {
 			console.log("!!!!!!!!! returned from search - ", {
 				...result,
 				resources: "",
-				items: result.resources.length,
+				items: result.resources && result.resources.length,
 			});
 
 			return {

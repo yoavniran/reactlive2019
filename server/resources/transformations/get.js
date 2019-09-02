@@ -1,15 +1,17 @@
 const cldApi = require("../../cloudinary");
 
-const DEMO_PREFIX = "t_reactlive_";
+const DEMO_PREFIX = "t_";
 
 const filterDemoTransformations = (transformations) =>
 	transformations.filter((t) => !t.name.indexOf(DEMO_PREFIX));
 
 const getTransformationUrls = (id, transformations) =>
 	transformations.map((t) => {
-		const url = cldApi.cloudinary.url(id, {transformation: [t.name]}) ;
+		const tName = t.name.replace(DEMO_PREFIX, "");
+
+		const url = cldApi.cloudinary.url(id, {transformation: [tName]}) ;
 		return {
-			name: t.name.replace(DEMO_PREFIX, ""),
+			name: tName,
 			url,
 		};
 	});

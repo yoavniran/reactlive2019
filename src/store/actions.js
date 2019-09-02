@@ -50,8 +50,20 @@ const fetchPhotos = async (getState, dispatcher, cursor = null) => {
 	}
 };
 
+const fetchTransformations =  async(data, getState, dispatcher) => {
+	const response = await makeRequest(`transformations?id=${data.id}`);
+
+	console.log("!!!!!!!!!!!! fetched transformations for id: " + data.id, response);
+
+	if (!response.error){
+		dispatcher(TYPES.SET_PHOTO_TRANSFORMATIONS, {id: data.id, urls: response.urls});
+	}
+};
+
 export default createActionCreators(TYPES, {
-	[TYPES.FETCH_PHOTOS]: createCustomCreator(
-		(getState, dispatcher) =>
-			fetchPhotos(getState, dispatcher)),
+	[TYPES.FETCH_PHOTOS]:
+		createCustomCreator(fetchPhotos),
+
+	[TYPES.FETCH_PHOTO_TRANSFORMATIONS]:
+		createCustomCreator(fetchTransformations),
 });

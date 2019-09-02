@@ -1,9 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
+import {useTransition, animated} from "react-spring";
 import styled from "styled-components";
 import actions from "../store/actions";
 import {TYPES} from "../consts";
-import Photo from "./Photo";
+import GridPhoto from "./GridPhoto";
 
 const Container = styled.div`
 	width: 100%;
@@ -12,20 +13,29 @@ const Container = styled.div`
 	padding: 10px;
 `;
 
-const PhotosGrid = ({assets}) => {
+const PhotosGrid = () => {
 	console.log("!!!!!!!!!! RENDERING PHOTOS GRID");
-
 	const dispatch = useDispatch();
 	const photos = useSelector((state) => state.photos);
 
+	const transitions = useTransition(photos, (p) => p.id, {
+		initial: {opacity: 1},
+		leave: { opacity: 0 },
+	});
+
 	useEffect(()=> {
+		console.log("!!!!!!!!!! PhotosGrid useEffect called");
+
 		if (!photos.length) {
 			dispatch(actions[TYPES.FETCH_PHOTOS]());
 		}
 	}, [dispatch, photos]);
 
 	return <Container>
-		{photos.map((photo, index) => <Photo key={index} photo={photo}/>)}
+		{transitions.map(({ item, key, props }) =>
+				item && <animated.div key={key} style={props}>
+						<GridPhoto photo={item} />
+					️</animated.div>)}
 	</Container>;
 };
 
