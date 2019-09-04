@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import actions from "../store/actions";
@@ -67,7 +67,7 @@ const ExposedMask = styled.div`
 `;
 
 const GridPhoto = ({ photo }) => {
-	console.log("!!!!!!!!!!! rendering photo: ", photo.id);
+	// console.log("!!!!!!!!!!! rendering photo: ", photo.id);
 	const dispatch = useDispatch();
 
 	const exposedPhotoId = useSelector((state) => state.exposedPhotoId);
