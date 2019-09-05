@@ -33,7 +33,8 @@ const ImageContainer = styled.div`
 `;
 
 const Image = styled.img`
-	width: ${({ size }) => size.width ? `${size.width}px` : "auto"};
+	width: auto;
+	/*width: ${({ size }) => size.width ? `${size.width}px` : "auto"};*/
 	height: ${({ size }) => size.height ? `${size.height}px` : "auto"};
 `;
 
@@ -54,7 +55,7 @@ const CloseButton = styled(Svg)`
 
 const PhotoDrawer = ({ exposedId }) => {
 	const imgRef = useRef();
-	const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
+	const [imgSize, setImgSize] = useState({height: 0 });
 	const dispatch = useDispatch();
 	const photoTransformations = useSelector((state) => state.transformations[exposedId]);
 	const photo = useSelector((state) => state.photos.find((p) => p.id === exposedId)); //TODO: !!!!!!!!! MEMOIZE
@@ -77,7 +78,7 @@ const PhotoDrawer = ({ exposedId }) => {
 		const img = imgRef.current;
 
 		if (img) {
-			const size = { width: "auto", height: 0 },
+			const size = { height: 0 },
 				maxHeight = window.innerHeight - 220;
 			// ratio = img.naturalWidth / img.naturalHeight;
 

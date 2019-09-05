@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useTransition, animated } from "react-spring";
+import { useTransition } from "react-spring";
 import styled from "styled-components";
 import actions from "../store/actions";
 import { TYPES } from "../consts";
@@ -14,14 +14,17 @@ const Container = styled.div`
 `;
 
 const PhotosGrid = () => {
-	console.log("!!!!!!!!!! RENDERING PHOTOS GRID");
 	const dispatch = useDispatch();
 	const photos = useSelector((state) => state.photos);
 
-	const transitions = useTransition(photos, (p) => p.id, {
-		initial: { opacity: 1 },
-		leave: { opacity: 0 },
-	});
+	const transitions = useTransition([...photos],
+		(p) => p.id,
+		{
+			initial: { opacity: 1 },
+			leave: { opacity: 0 },
+		});
+
+	console.log("!!!!!!!!!! RENDERING PHOTOS GRID", {photos, transitions});
 
 	useEffect(() => {
 		console.log("!!!!!!!!!! PhotosGrid useEffect called");
@@ -32,10 +35,10 @@ const PhotosGrid = () => {
 	}, [dispatch, photos]);
 
 	return <Container>
-		{transitions.map(({ item, key, props },  index) =>
-			item && <animated.div key={index} style={props}>
-				<GridPhoto photo={item}/>
-				️</animated.div>)}
+		{photos.map((item, index)=>
+			<GridPhoto key={index} photo={item}/>)}
+		{/*{transitions.map(({ item, key, props }, index) =>*/}
+		{/*	<GridPhoto key={key} photo={item} style={props} />)}*/}
 	</Container>;
 };
 

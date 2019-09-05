@@ -2,11 +2,13 @@ import createReducer from "../common/immerReducerBase";
 import { TYPES } from "../consts";
 import initialState from "./initialState";
 import { getCloudinaryUrl } from "../api";
-import {findPhoto, processPhotos} from "./shared"
+import { findPhoto, processPhotos } from "./shared"
 
 export default createReducer(initialState, {
 	[TYPES.SET_PHOTOS]: (draft, { payload }) => {
-		draft.photos = draft.photos.concat(processPhotos(payload.photos));
+		draft.photos = draft.photos
+			.concat(processPhotos(payload.photos));
+
 		draft.nextCursor = payload.nextCursor;
 	},
 
@@ -33,11 +35,13 @@ export default createReducer(initialState, {
 	},
 
 	[TYPES.REMOVE_PHOTO]: (draft, { payload }) => {
-		draft.photos = draft.photos.filter((p) => p.id !== payload.id);
+		draft.photos = draft.photos
+			.filter((p) => p.id !== payload.id);
 	},
 
 	[TYPES.SET_PHOTO_TRANSFORMATION_URL]: (draft, { payload }) => {
-		const photo = draft.photos.find((p) => p.id === payload.photoId);
+		const photo = draft.photos
+			.find((p) => p.id === payload.photoId);
 
 		if (photo) {
 			photo.exposedUrl = payload.url;

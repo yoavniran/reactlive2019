@@ -1,7 +1,6 @@
 import { FETCH_STATUSES } from "../consts";
 
 export default {
-	// viewState: VIEW_STATES.EXPANDED,
 	photosFetchStatus: FETCH_STATUSES.NONE,
 
 	photos: [],
@@ -10,7 +9,7 @@ export default {
 	tagsFilter: [],
 
 	exposedPhotoId: null,
+	selectedPhotoId: null,
 
 	transformations: {}
-	// bigPerfIndicator: false,
 };

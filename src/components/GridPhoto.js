@@ -1,12 +1,17 @@
-import React from "react";
+import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { animated } from "react-spring";
+import { createSelector } from "reselect";
+import memoize from "memoize-state";
 import actions from "../store/actions";
 import { TYPES } from "../consts";
 import icons from "../icons";
 import Svg from "./Svg";
+import usePropsSelector from "../hooks/usePropsSelector";
 
-const Container = styled.div`
+// styled(animated.div)`
+const Container = styled(animated.div)`
 	width: 230px;	
 	margin: 10px;	
 	display: flex;
@@ -15,9 +20,10 @@ const Container = styled.div`
 	background-color: #191928;
 	position: relative;
 	cursor: pointer;
+	box-sizing: border-box;	
 	border: ${({ selected, exposed }) =>
-	(exposed ? "1px dotted #8995B8" : 
-		selected ? "2px solid #61dafb" : "1px solid #282c34") };
+	(exposed ? "2px dotted #8995B8" :
+		selected ? "2px solid #61dafb" : "2px solid #282c34")};
 `;
 
 const BottomBar = styled.div`
@@ -55,29 +61,40 @@ const BottomIcons = styled.div`
 	justify-content: space-between;
 `;
 
-const ExposedMask = styled.div`
-	display: ${({show}) => show ? "block" : "none" };
-	
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background-color: rgba(247,246,255,0.53);
-`;
+//
+// const selectedIdSelector = createSelector(
+// 	(state, props) => state.selectedPhotoId === props.id,
+// 	(state, props) => props.id,
+// 	(isSelected, id) => {
+// 		console.log("!!!!!!!!!!!! returning selected = " + isSelected + " for id: ", id);
+// 		return isSelected;
+// 	},
+// );
 
-const GridPhoto = ({ photo }) => {
-	// console.log("!!!!!!!!!!! rendering photo: ", photo.id);
+const getSelectorInstance = () => createSelector(
+	(state, id) => state.selectedPhotoId === id,
+	(isSelected) => {
+		//console.log("!!!!!!!!!!!! returning selected = " + isSelected + " for props: ", props);
+		return isSelected;
+	},
+);
+
+const memoizedIsSelected = memoize((state, id) => {
+	console.log("!!!!!!!!!!!! running memoized selector = for: ", id);
+	return state.selectedPhotoId === id;
+});
+
+const GridPhoto = ({ photo, style }) => {
 	const dispatch = useDispatch();
-
-	const exposedPhotoId = useSelector((state) => state.exposedPhotoId);
-
-	const isExposed = exposedPhotoId === photo.id;
+	// const selectedId = useSelector((state) => state.selectedPhotoId);
+	const isSelected = photo.selected;
+	// const isSelected = useSelector((state) => state.selectedPhotoId === photo.id);
+	// const isSelected = useSelector((state)=>memoizedIsSelected(state, photo.id));  // usePropsSelector(getSelectorInstance, photo.id, photo.url);
 
 	const setSelected = () =>
 		dispatch(actions[TYPES.SET_SELECTED_PHOTO]({
 			id: photo.id,
-			selected: !photo.selected,
+			selected: !isSelected,
 		}));
 
 	const setExposed = () =>
@@ -85,23 +102,25 @@ const GridPhoto = ({ photo }) => {
 			id: photo.id,
 		}));
 
-	const deletePhoto = () =>
+	const deletePhoto = () => {
+		console.log("############## dispatching delete !!!!!!!!", photo.id)
 		dispatch(actions[TYPES.REMOVE_PHOTO]({
 			id: photo.id,
 		}));
+	};
 
-	return <Container selected={photo.selected} exposed={isExposed}>
-		<ExposedMask show={isExposed} />
+	console.log("!!!!!!!! rendering GridPhoto: ", photo.id);
 
+	return <Container selected={isSelected} style={style}>
 		<Image src={photo.url} onClick={setSelected}/>
 
 		<BottomBar>
 			<BottomIcons>
 				<Svg path={icons.check}
-				     fill={photo.selected ? "#FB851A" : "#E1E1E1"}
+				     fill={isSelected ? "#FB851A" : "#E1E1E1"}
 				     onClick={setSelected}/>
-			     <Svg path={icons.delete} fill="#FB851A" onClick={deletePhoto}/>
-			     <Svg path={icons.zoom} fill="#FB851A" onClick={setExposed}/>
+				<Svg path={icons.delete} fill="#FB851A" onClick={deletePhoto}/>
+				<Svg path={icons.zoom} fill="#FB851A" onClick={setExposed}/>
 			</BottomIcons>
 
 			<PhotoId title={photo.id}>{photo.id}</PhotoId>
@@ -109,5 +128,5 @@ const GridPhoto = ({ photo }) => {
 	</Container>;
 };
 
-export default GridPhoto;
-//export default memo(GridPhoto);
+// export default GridPhoto;
+export default memo(GridPhoto);
