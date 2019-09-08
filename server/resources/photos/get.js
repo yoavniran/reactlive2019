@@ -15,7 +15,7 @@ module.exports = (req, info) => {
 	return cloudinary.search({
 		cursor,
 		tags: [process.env.CLD_TAG],
-		max: 100,
+		max: 200,
 	})
 		.then((result) => {
 

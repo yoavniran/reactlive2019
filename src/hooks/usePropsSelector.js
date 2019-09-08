@@ -4,12 +4,12 @@ import { useSelector } from "react-redux";
 const usePropsSelector = (selectorCreator, ...props) => {
 	const selectorInstance = useRef(selectorCreator());
 
-	const selectedSelector = useCallback(
+	const memoSelector = useCallback(
 		(state) => selectorInstance.current(state, ...props),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		props);
 
-	return useSelector(selectedSelector);
+	return useSelector(memoSelector);
 };
 
 export default usePropsSelector;
