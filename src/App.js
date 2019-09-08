@@ -13,12 +13,14 @@ const App = () => {
 	return (<div className="App">
 		<GlobalStyles/>
 		<Header/>
+
 		<Suspense fallback={<div>Loading...</div>}>
 			<CypressProfiler>
 				<PhotosGrid />
 			</CypressProfiler>
 		</Suspense>
-		{exposedId && <PhotoDrawer exposedId={exposedId}/>}
+
+		{exposedId && <PhotoDrawer exposedId={exposedId} />}
 	</div>);
 };
 
