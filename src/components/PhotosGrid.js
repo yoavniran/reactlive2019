@@ -24,11 +24,7 @@ const PhotosGrid = () => {
 			leave: { opacity: 0 },
 		});
 
-	console.log("!!!!!!!!!! RENDERING PHOTOS GRID", {photos, transitions});
-
 	useEffect(() => {
-		console.log("!!!!!!!!!! PhotosGrid useEffect called");
-
 		if (!photos.length) {
 			dispatch(actions[TYPES.FETCH_PHOTOS]());
 		}
@@ -37,8 +33,9 @@ const PhotosGrid = () => {
 	return <Container>
 		{photos.map((item, index)=>
 			<GridPhoto key={index} photo={item}/>)}
-		{/*{transitions.map(({ item, key, props }, index) =>*/}
-		{/*	<GridPhoto key={key} photo={item} style={props} />)}*/}
+		{/*{transitions.map((data, index) =>
+		const { item, key, props } = props;
+			<GridPhoto key={key} photo={item} style={props} />)}*/}
 	</Container>;
 };
 
