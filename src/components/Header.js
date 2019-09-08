@@ -12,6 +12,7 @@ const Container = styled.header`
 	align-items: center;
 	justify-content: space-between;
 	flex-direction: row-reverse;	
+	border-bottom: 2px solid #61dafb;
 `;
 
 const Counter = styled.div`

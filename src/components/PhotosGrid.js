@@ -1,44 +1,75 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect, useRef, useMemo, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useTransition } from "react-spring";
+import { createSelector } from "reselect";
 import styled from "styled-components";
 import actions from "../store/actions";
 import { TYPES } from "../consts";
 import GridPhoto from "./GridPhoto";
+import { FixedSizeGrid as Grid, areEqual } from "react-window";
+
 
 const Container = styled.div`
 	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	padding: 10px;
+	height: 100%;	
+	background-color: #282c34;	
 `;
 
-const PhotosGrid = () => {
+const getItemIndex = (col, row, colCount) => ((row * colCount) + col);
+
+const photoIdsSelector = createSelector(
+	(state) => state.photos,
+	(photos) => photos.map((p) => p.id)
+);
+
+const GridItemRenderer = ({ style, columnIndex, rowIndex, data }) => {
+	const index = getItemIndex(columnIndex, rowIndex, data.colCount);
+
+	return index < data.photos.length && <GridPhoto id={data.photos[index]}
+	                                                style={style}/>;
+};
+
+const PhotosGrid = ({ width, height }) => {
+	const gridRef = useRef();
 	const dispatch = useDispatch();
-	const photos = useSelector((state) => state.photos);
+	const photos = useSelector(photoIdsSelector);
+	const hasPhotos = !!photos.length;
 
-	const transitions = useTransition([...photos],
-		(p) => p.id,
-		{
-			initial: { opacity: 1 },
-			leave: { opacity: 0 },
-		});
-
-	console.log("!!!!!!!!!! RENDERING PHOTOS GRID", {photos, transitions});
+	console.log("!!!!!!!!!! RENDERING PHOTOS GRID");
 
 	useEffect(() => {
 		console.log("!!!!!!!!!! PhotosGrid useEffect called");
 
-		if (!photos.length) {
+		if (!hasPhotos) {
 			dispatch(actions[TYPES.FETCH_PHOTOS]());
 		}
-	}, [dispatch, photos]);
+	}, [dispatch, hasPhotos]);
+
+	const colCount = Math.floor(width / 230),
+		rowCount = Math.ceil(photos.length / colCount);
+
+	const itemData = useMemo(
+		() => ({ colCount, photos }),
+		[colCount, photos]
+	);
+
+	const calculateItemKey = useCallback(({ columnIndex, data, rowIndex }) => {
+		const index = getItemIndex(columnIndex, rowIndex, data.colCount);
+		return photos[index] || "__last";
+	}, [photos]);
 
 	return <Container>
-		{photos.map((item, index)=>
-			<GridPhoto key={index} photo={item}/>)}
-		{/*{transitions.map(({ item, key, props }, index) =>*/}
-		{/*	<GridPhoto key={key} photo={item} style={props} />)}*/}
+		{photos.length ? <Grid
+			ref={gridRef}
+			columnCount={colCount}
+			columnWidth={230}
+			height={height}
+			rowCount={rowCount}
+			rowHeight={210}
+			width={width}
+			itemData={itemData}
+			itemKey={calculateItemKey}>
+			{GridItemRenderer}
+		</Grid> : null}
 	</Container>;
 };
 

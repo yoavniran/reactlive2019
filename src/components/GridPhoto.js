@@ -8,6 +8,7 @@ import { TYPES } from "../consts";
 import icons from "../icons";
 import Svg from "./Svg";
 import usePropsSelector from "../hooks/usePropsSelector";
+import { areEqual } from "react-window";
 
 const Container = styled(animated.div)`
 	width: 230px;	
@@ -59,17 +60,7 @@ const BottomIcons = styled.div`
 	justify-content: space-between;
 `;
 
-//
-// const selectedIdSelector = createSelector(
-// 	(state, props) => state.selectedPhotoId === props.id,
-// 	(state, props) => props.id,
-// 	(isSelected, id) => {
-// 		console.log("!!!!!!!!!!!! returning selected = " + isSelected + " for id: ", id);
-// 		return isSelected;
-// 	},
-// );
-
-const getSelectorInstance = () => createSelector(
+const getSelectedSelectorInstance = () => createSelector(
 	(state, id) => state.selectedPhotoId === id,
 	(isSelected) => {
 		//console.log("!!!!!!!!!!!! returning selected = " + isSelected + " for props: ", props);
@@ -77,24 +68,22 @@ const getSelectorInstance = () => createSelector(
 	},
 );
 
-const GridPhoto = ({ photo, style }) => {
+const getPhotoSelectorInstance = () => createSelector(
+	(state) => state.photos,
+	(state, id) => id,
+	(photos, id) => photos.find((p)=> p.id === id)
+);
+
+const GridPhoto = ({ id, style }) => {
 	const dispatch = useDispatch();
-	// const selectedId = useSelector((state) => state.selectedPhotoId);
-	const isSelected = photo.selected;
-	// const isSelected = useSelector((state) => state.selectedPhotoId === photo.id);
-	// const isSelected = useSelector((state)=>memoizedIsSelected(state, photo.id));
-	// const isSelected = usePropsSelector(getSelectorInstance, photo.id, photo.url);
+	const photo = usePropsSelector(getPhotoSelectorInstance, id);
+	const isSelected = usePropsSelector(getSelectedSelectorInstance, id);
 
 	const setSelected = () => {
 		dispatch(actions[TYPES.SET_SELECTED_PHOTO]({
 			id: photo.id,
 			selected: !isSelected,
 		}));
-
-		// interactionDispatch(dispatch, TYPES.SET_SELECTED_PHOTO, {
-		// 	id: photo.id,
-		// 	selected: !isSelected,
-		// });
 	};
 
 	const setExposed = () =>
@@ -104,8 +93,6 @@ const GridPhoto = ({ photo, style }) => {
 
 	const deletePhoto = () =>
 		dispatch(actions[TYPES.REMOVE_PHOTO]({ id: photo.id, }));
-
-	// console.log("!!!!!!!! rendering GridPhoto: ", photo.id);
 
 	return <Container selected={isSelected} style={style} className="grid-photo">
 		<Image src={photo.url} onClick={setSelected}/>
@@ -124,5 +111,5 @@ const GridPhoto = ({ photo, style }) => {
 	</Container>;
 };
 
-export default GridPhoto;
-// export default memo(GridPhoto);
+// export default GridPhoto;
+export default memo(GridPhoto, areEqual);
