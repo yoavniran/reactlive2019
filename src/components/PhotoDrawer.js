@@ -33,8 +33,7 @@ const ImageContainer = styled.div`
 `;
 
 const Image = styled.img`
-	width: auto;
-	/*width: ${({ size }) => size.width ? `${size.width}px` : "auto"};*/
+	width: auto;	
 	height: ${({ size }) => size.height ? `${size.height}px` : "auto"};
 `;
 
