@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import PhotosGrid from "./components/PhotosGrid";
-import GlobalStyles from "./components/GlobalStyles";
-import Header from "./components/Header";
-import PhotoDrawer from "./components/PhotoDrawer";
+import PhotosGrid from "./PhotosGrid";
+import GlobalStyles from "./GlobalStyles";
+import Header from "./Header";
+import PhotoDrawer from "./PhotoDrawer";
 
 const App = () => {
 	const exposedId = useSelector((state) => state.exposedPhotoId);
