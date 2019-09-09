@@ -11,6 +11,8 @@ const GridPhoto = ({ photo, style }) => {
 	const isSelected = photo.selected;
 
 	const setSelected = () => {
+		//distrace
+
 		dispatch(actions[TYPES.SET_SELECTED_PHOTO]({
 			id: photo.id,
 			selected: !isSelected,
