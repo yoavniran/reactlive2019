@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import actions from "../store/actions";
 import { TYPES } from "../consts";
 import GridPhoto from "./GridPhoto";
+import Spinner from "./Spinner";
 import * as styled from "./PhotosGrid.styled";
 
 const PhotosGrid = () => {
@@ -16,8 +17,9 @@ const PhotosGrid = () => {
 	}, [dispatch, photos]);
 
 	return <styled.Container>
-		{photos.map((photo, index) =>
-			<GridPhoto key={index} photo={photo} />)}
+		{photos.length ? photos.map((photo, index) =>
+			<GridPhoto key={index} photo={photo} />) :
+		<Spinner/>}
 	</styled.Container>;
 };
 
