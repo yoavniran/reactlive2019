@@ -14,6 +14,8 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	body {
+		-webkit-font-smoothing: antialiased;
+  		-moz-osx-font-smoothing: grayscale;
   		font-family: 'Frank Ruhl Libre', serif;
 		line-height: 1.5;
 		background-color: #acb5ba;
