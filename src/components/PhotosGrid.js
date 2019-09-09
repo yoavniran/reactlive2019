@@ -17,7 +17,7 @@ const PhotosGrid = () => {
 
 	return <styled.Container>
 		{photos.map((photo, index) =>
-			<GridPhoto key={index} photo={photo}/>)}
+			<GridPhoto key={index} photo={photo} />)}
 	</styled.Container>;
 };
 
