@@ -45,8 +45,8 @@ export const Image = styled.img`
   display: block;
   max-width:230px;
   max-height:130px;
-  width: auto;
-  height: auto;
+  //width: auto;
+  //height: auto;
   
   @media (min-width: 900px) {
 		max-width: 230px;

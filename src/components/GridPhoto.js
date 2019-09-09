@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import actions from "../store/actions";
 import { TYPES } from "../consts";
 import icons from "../icons";
 import Svg from "./Svg";
 import * as styled from "./GridPhoto.styled";
+//impresponsive
+
+//implazyload
+
 
 //sel1
 //sel2
 //createstate
+
+//lazyloadedimg
+
 
 const GridPhoto = ({ photo, style }) => {
 
@@ -32,8 +39,13 @@ const GridPhoto = ({ photo, style }) => {
 	const deletePhoto = () =>
 		dispatch(actions[TYPES.REMOVE_PHOTO]({ id: photo.id, }));
 
+	//respattrs
+
+
 	return <styled.Container selected={isSelected} style={style} className="grid-photo">
 		<styled.Image src={photo.exposedUrl || photo.url} onClick={setSelected}/>
+
+		{/*respimgprops*/}
 
 		<styled.BottomBar>
 			<styled.BottomIcons>
