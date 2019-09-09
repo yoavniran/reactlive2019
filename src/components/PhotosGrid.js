@@ -6,9 +6,7 @@ import GridPhoto from "./GridPhoto";
 import * as styled from "./PhotosGrid.styled";
 //impgrid
 
-
 //griditemindex
-
 
 //griditemrenderer
 
@@ -18,6 +16,7 @@ const PhotosGrid = ({width, height}) => {
 	const dispatch = useDispatch();
 	const photos = useSelector((state) => state.photos);
 
+	//gridcounters
 
 	useEffect(() => {
 		if (!photos.length) {
@@ -28,6 +27,7 @@ const PhotosGrid = ({width, height}) => {
 	//griditemkey
 
 	return <styled.Container>
+		{/* rendergrid */}
 		{photos.map((photo) =>
 			<GridPhoto key={photo.id} photo={photo} />)}
 	</styled.Container>;
