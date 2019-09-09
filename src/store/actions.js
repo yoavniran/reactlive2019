@@ -2,7 +2,8 @@
 import createActionCreators, {createCustomCreator} from "../common/actionsBase";
 import {TYPES, FETCH_STATUSES} from "../consts";
 import {makeRequest} from "../api";
-//imptrace
+import { unstable_trace as trace } from "scheduler/tracing";
+import { ENABLE_PROFILER } from "../common/utils";
 
 
 const fetchPhotos = async (getState, dispatcher, cursor = null) => {
@@ -43,7 +44,16 @@ const actions = createActionCreators(TYPES, {
 		createCustomCreator(fetchTransformations),
 });
 
-//intdisp
+export const interactionDispatch = (dispatch, type, ...params) => {
+	const dispatchAction = () =>
+		dispatch(actions[type](...params));
+
+	if (ENABLE_PROFILER) {
+		trace(type, performance.now(), dispatchAction)
+	} else {
+		dispatchAction();
+	}
+};
 
 
 export default actions;

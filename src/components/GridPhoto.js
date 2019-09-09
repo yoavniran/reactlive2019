@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import {createSelector} from "reselect";
-import actions from "../store/actions";
+import actions, {interactionDispatch} from "../store/actions";
 import { TYPES } from "../consts";
 import icons from "../icons";
 import Svg from "./Svg";
@@ -19,10 +19,10 @@ const GridPhoto = ({ photo, style }) => {
 	const isSelected = usePropsSelector(getSelectedSelectorInstance, photo.id);
 
 	const setSelected = () => {
-		dispatch(actions[TYPES.SET_SELECTED_PHOTO]({
+		interactionDispatch(dispatch, TYPES.SET_SELECTED_PHOTO, {
 			id: photo.id,
 			selected: !isSelected,
-		}));
+		});
 	};
 
 	const setExposed = () =>
