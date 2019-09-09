@@ -16,8 +16,8 @@ const PhotosGrid = () => {
 	}, [dispatch, photos]);
 
 	return <styled.Container>
-		{photos.map((item, index)=>
-			<GridPhoto key={index} photo={item}/>)}
+		{photos.map((photo, index) =>
+			<GridPhoto key={index} photo={photo}/>)}
 	</styled.Container>;
 };
 
