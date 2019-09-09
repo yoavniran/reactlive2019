@@ -1,13 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import actions from "../store/actions";
 import { TYPES } from "../consts";
 import GridPhoto from "./GridPhoto";
 import * as styled from "./PhotosGrid.styled";
+//impgrid
 
-const PhotosGrid = () => {
+
+//griditemindex
+
+
+//griditemrenderer
+
+
+const PhotosGrid = ({width, height}) => {
+	const gridRef = useRef();
 	const dispatch = useDispatch();
 	const photos = useSelector((state) => state.photos);
+
 
 	useEffect(() => {
 		if (!photos.length) {
@@ -15,9 +25,11 @@ const PhotosGrid = () => {
 		}
 	}, [dispatch, photos]);
 
+	//griditemkey
+
 	return <styled.Container>
-		{photos.map((photo, index) =>
-			<GridPhoto key={index} photo={photo} />)}
+		{photos.map((photo) =>
+			<GridPhoto key={photo.id} photo={photo} />)}
 	</styled.Container>;
 };
 

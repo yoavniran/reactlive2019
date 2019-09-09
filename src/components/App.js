@@ -15,7 +15,7 @@ const App = () => {
 		<Header/>
 		<styled.GridContainer>
 			{/*autosizer*/}
-			<PhotosGrid />
+			<PhotosGrid/>
 		</styled.GridContainer>
 		{exposedId && <PhotoDrawer exposedId={exposedId}/>}
 	</div>);

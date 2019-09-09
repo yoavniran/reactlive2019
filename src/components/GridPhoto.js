@@ -1,23 +1,24 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import {createSelector} from "reselect";
 import actions from "../store/actions";
 import { TYPES } from "../consts";
 import icons from "../icons";
 import Svg from "./Svg";
 import * as styled from "./GridPhoto.styled";
+import usePropsSelector from "../hooks/usePropsSelector";
 
-//sel1
-//sel2
-//createstate
+const getSelectedSelectorInstance = () => createSelector(
+	(state, id) => state.selectedPhotoId === id,
+	(isSelected) => isSelected
+);
 
 const GridPhoto = ({ photo, style }) => {
 
 	const dispatch = useDispatch();
-	const isSelected = photo.selected;
+	const isSelected = usePropsSelector(getSelectedSelectorInstance, photo.id);
 
 	const setSelected = () => {
-		//distrace
-
 		dispatch(actions[TYPES.SET_SELECTED_PHOTO]({
 			id: photo.id,
 			selected: !isSelected,
