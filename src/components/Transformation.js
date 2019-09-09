@@ -9,7 +9,7 @@ const Container = styled.div`
 	justify-content: center;
 	cursor: pointer;
 	
-	border: ${({selected}) => selected ? "2px solid #61dafb" : "1px solid #282c34"};
+	border: ${({ selected }) => selected ? "2px solid #61dafb" : "1px solid #282c34"};
 `;
 
 const Image = styled.img`
@@ -29,10 +29,10 @@ const Text = styled.div`
     text-overflow: ellipsis;
 `;
 
-const Transformation = ({name, url, selected, enableTransformation}) => {
+const Transformation = ({ name, url, selected, enableTransformation }) => {
 
-	return <Container onClick={enableTransformation} selected={selected}>
-		<Image src={url} />
+	return <Container onClick={() => enableTransformation(name, url)} selected={selected}>
+		<Image src={url}/>
 		<Text>{name}</Text>
 	</Container>;
 };

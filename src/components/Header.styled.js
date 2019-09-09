@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Container = styled.header`
+export const Container = styled.header`
 	height: 60px;
 	width: 100%;
 	background-color: #282c34;
@@ -10,7 +10,7 @@ const Container = styled.header`
 	flex-direction: row-reverse;	
 `;
 
-const Counter = styled.div`
+export const Counter = styled.div`
 	height: 100%;
 	padding: 0 4px;
 	background-color: black;

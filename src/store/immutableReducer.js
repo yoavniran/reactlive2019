@@ -42,8 +42,6 @@ export default createReducer(Immutable(initialState), {
 	},
 
 	[TYPES.REMOVE_PHOTO]: (state, { payload }) => {
-		console.log("############## REDUCER removing photo !!!!!!!!", payload);
-
 		const updatedList = state.photos
 			.filter((p) => p.id !== payload.id);
 

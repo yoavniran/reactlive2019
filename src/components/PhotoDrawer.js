@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState, } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../store/actions";
 import { TYPES } from "../consts";
@@ -32,7 +32,7 @@ const PhotoDrawer = ({ exposedId }) => {
 			photoId: photo.id,
 			url,
 			name,
-		}));
+		}))
 	};
 
 	const onImageLoad = () => {

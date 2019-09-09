@@ -26,7 +26,7 @@ const GridPhoto = ({ photo, style }) => {
 		dispatch(actions[TYPES.REMOVE_PHOTO]({ id: photo.id, }));
 
 	return <styled.Container selected={isSelected} style={style} className="grid-photo">
-		<styled.Image src={photo.url} onClick={setSelected}/>
+		<styled.Image src={photo.exposedUrl || photo.url} onClick={setSelected}/>
 
 		<styled.BottomBar>
 			<styled.BottomIcons>
