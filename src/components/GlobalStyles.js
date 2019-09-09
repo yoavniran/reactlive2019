@@ -3,14 +3,13 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
 
 	html {
-		background-color: white;
-		overflow-x: hidden;
-		overflow-y: scroll;
+		background-color: white;		
 		text-rendering: optimizeLegibility;
 		font-size: 18px;
 		box-sizing: border-box;
 		margin: 0;
-		padding: 0;	
+		padding: 0;
+		overflow: hidden;	
 	}
 
 	body {
@@ -21,6 +20,7 @@ const GlobalStyles = createGlobalStyle`
 		background-color: #acb5ba;
     	margin: 0;
     	padding: 0;
+    	
     	
     	&.no-scroll {
     		overflow: hidden;

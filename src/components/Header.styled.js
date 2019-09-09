@@ -7,7 +7,8 @@ export const Container = styled.header`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	flex-direction: row-reverse;	
+	flex-direction: row-reverse;
+	border-bottom: 2px solid #61dafb;	
 `;
 
 export const Counter = styled.div`

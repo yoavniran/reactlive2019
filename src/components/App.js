@@ -4,6 +4,8 @@ import PhotosGrid from "./PhotosGrid";
 import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
 import PhotoDrawer from "./PhotoDrawer";
+import AutoSizer from "react-virtualized-auto-sizer";
+import * as styled from "./App.styled";
 
 const App = () => {
 	const exposedId = useSelector((state) => state.exposedPhotoId);
@@ -11,7 +13,10 @@ const App = () => {
 	return (<div className="App">
 		<GlobalStyles/>
 		<Header/>
-		<PhotosGrid />
+		<styled.GridContainer>
+			{/*autosizer*/}
+			<PhotosGrid />
+		</styled.GridContainer>
 		{exposedId && <PhotoDrawer exposedId={exposedId}/>}
 	</div>);
 };

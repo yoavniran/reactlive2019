@@ -15,11 +15,8 @@ export default createReducer(Immutable(initialState), {
 		}),
 
 	[TYPES.SET_SELECTED_PHOTO]: (state, { payload }) => {
-		const index = getPhotoIndex(state, payload.id);
-		return state.setIn(["photos", index, "selected"], payload.selected);
+		return state.set("selectedPhotoId", payload.selected ? payload.id : null);
 	},
-
-	//immselect
 
 	[TYPES.SET_EXPOSED_PHOTO]: (state, { payload }) => {
 		state = state.set("exposedPhotoId", payload.id);
