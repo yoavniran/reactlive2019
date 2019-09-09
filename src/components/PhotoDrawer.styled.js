@@ -17,6 +17,8 @@ export const Container = styled.div`
 	flex-direction: column;
 	height: 100%;
 	background-color: #15171b;
+	justify-content: center;
+	align-items: center;
 `;
 
 export const ImageContainer = styled.div`
@@ -37,6 +39,7 @@ export const Transformations = styled.div`
 	display: flex;
 	border-top: 2px solid #61dafb;
 	align-items: center;
+	overflow-x: scroll;
 `;
 
 export const CloseButton = styled(Svg)`

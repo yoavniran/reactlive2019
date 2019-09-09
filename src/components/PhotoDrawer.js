@@ -5,12 +5,25 @@ import { TYPES } from "../consts";
 import Transformation from "./Transformation";
 import icons from "../icons";
 import * as styled from "./PhotoDrawer.styled";
+//impresource
 
-const DrawerContent =  ({transformations, exposedId}) => {
+//concres
+
+const DrawerContent =  ({exposedId}) => {
 	const imgRef = useRef();
 	const dispatch = useDispatch();
 	const [imgSize, setImgSize] = useState({height: 0 });
 	const photo = useSelector((state) => state.photos.find((p) => p.id === exposedId));
+
+	const transformations = useSelector((state) => state.transformations[exposedId]);
+
+	useLayoutEffect(() => {
+		if (!transformations) {
+			dispatch(actions[TYPES.FETCH_PHOTO_TRANSFORMATIONS]({ id: exposedId }));
+		}
+	}, [transformations, dispatch, exposedId]);
+
+	//readtranforms
 
 	const enableTransformation = (name, url) => {
 		dispatch(actions[TYPES.SET_PHOTO_TRANSFORMATION_URL]({
@@ -50,15 +63,8 @@ const DrawerContent =  ({transformations, exposedId}) => {
 		</styled.Transformations>
 	</Fragment>
 };
-const PhotoDrawer = ({ exposedId }) => {
-	const dispatch = useDispatch();
-	const photoTransformations = useSelector((state) => state.transformations[exposedId]);
 
-	useLayoutEffect(() => {
-		if (!photoTransformations) {
-			dispatch(actions[TYPES.FETCH_PHOTO_TRANSFORMATIONS]({ id: exposedId }));
-		}
-	}, [photoTransformations, dispatch, exposedId]);
+const PhotoDrawer = ({ exposedId }) => {
 
 	useLayoutEffect(() => {
 		document.body.classList.add("no-scroll");
@@ -70,7 +76,9 @@ const PhotoDrawer = ({ exposedId }) => {
 
 	return <styled.Overlay>
 		<styled.Container>
-			<DrawerContent transformations={photoTransformations} exposedId={exposedId}/>
+			{/* susdrawer */}
+
+			<DrawerContent exposedId={exposedId}/>
 		</styled.Container>
 	</styled.Overlay>;
 };
