@@ -1,10 +1,9 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import PhotosGrid from "./components/PhotosGrid";
 import GlobalStyles from "./components/GlobalStyles";
 import Header from "./components/Header";
 import PhotoDrawer from "./components/PhotoDrawer";
-// const PhotosGrid = React.lazy(() => import("./components/PhotosGrid"));
 
 const App = () => {
 	const exposedId = useSelector((state) => state.exposedPhotoId);
@@ -12,9 +11,7 @@ const App = () => {
 	return (<div className="App">
 		<GlobalStyles/>
 		<Header/>
-		<Suspense fallback={<div>Loading...</div>}>
-				<PhotosGrid />
-		</Suspense>
+		<PhotosGrid />
 		{exposedId && <PhotoDrawer exposedId={exposedId}/>}
 	</div>);
 };

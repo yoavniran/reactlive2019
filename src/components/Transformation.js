@@ -1,8 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import {TYPES} from "../consts";
-import actions from "../store/actions";
 
 const Container = styled.div`
 	padding: 0 5px;
@@ -32,18 +29,9 @@ const Text = styled.div`
     text-overflow: ellipsis;
 `;
 
-const Transformation = ({name, url, photoId, selected}) => {
-	const dispatch = useDispatch();
+const Transformation = ({name, url, selected, enableTransformation}) => {
 
-	const onClick = () => {
-		dispatch(actions[TYPES.SET_PHOTO_TRANSFORMATION_URL]({
-			photoId,
-			url,
-			name,
-		}));
-	};
-
-	return <Container onClick={onClick} selected={selected}>
+	return <Container onClick={enableTransformation} selected={selected}>
 		<Image src={url} />
 		<Text>{name}</Text>
 	</Container>;

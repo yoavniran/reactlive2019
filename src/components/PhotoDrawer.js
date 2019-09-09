@@ -1,63 +1,17 @@
 import React, { useLayoutEffect, useRef, useState, } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import actions from "../store/actions";
 import { TYPES } from "../consts";
 import Transformation from "./Transformation";
-import Svg from "./Svg";
 import icons from "../icons";
-
-const Overlay = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	padding: 20px;
-	background-color: rgba(40,44,52,0.80);
-`;
-
-const Container = styled.div`
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	background-color: #15171b;
-`;
-
-const ImageContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 2;
-`;
-
-const Image = styled.img`
-	width: auto;	
-	height: ${({ size }) => size.height ? `${size.height}px` : "auto"};
-`;
-
-const Transformations = styled.div`
-	height: 200px;
-	width: 100%;
-	display: flex;
-	border-top: 2px solid #61dafb;
-	align-items: center;
-`;
-
-const CloseButton = styled(Svg)`
-	position: absolute;
-	top: 4px;
-	right: 4px;
-	cursor:pointer;
-`;
+import * as styled from "./PhotoDrawer.styled";
 
 const PhotoDrawer = ({ exposedId }) => {
 	const imgRef = useRef();
 	const [imgSize, setImgSize] = useState({height: 0 });
 	const dispatch = useDispatch();
 	const photoTransformations = useSelector((state) => state.transformations[exposedId]);
-	const photo = useSelector((state) => state.photos.find((p) => p.id === exposedId)); //TODO: !!!!!!!!! MEMOIZE
+	const photo = useSelector((state) => state.photos.find((p) => p.id === exposedId));
 
 	useLayoutEffect(() => {
 		if (!photoTransformations) {
@@ -73,38 +27,45 @@ const PhotoDrawer = ({ exposedId }) => {
 		};
 	}, []);
 
+	const enableTransformation = (name, url) => {
+		dispatch(actions[TYPES.SET_PHOTO_TRANSFORMATION_URL]({
+			photoId: photo.id,
+			url,
+			name,
+		}));
+	};
+
 	const onImageLoad = () => {
 		const img = imgRef.current;
 
 		if (img) {
 			const size = { height: 0 },
 				maxHeight = window.innerHeight - 220;
-			// ratio = img.naturalWidth / img.naturalHeight;
 
 			size.height = Math.min(maxHeight, img.naturalHeight);
-
 			setImgSize(size);
 		}
 	};
 
 	const unsetExposed = () => dispatch(actions[TYPES.SET_EXPOSED_PHOTO]({ id: null }));
 
-	return <Overlay>
-		<Container>
-			<CloseButton onClick={unsetExposed} path={icons.close} fill="#FFFFFF"/>
-			<ImageContainer>
-				<Image src={photo.exposedUrl}
+	return <styled.Overlay>
+		<styled.Container>
+			<styled.CloseButton onClick={unsetExposed} path={icons.close} fill="#FFFFFF"/>
+			<styled.ImageContainer>
+				<styled.Image src={photo.exposedUrl}
 				       ref={imgRef}
 				       size={imgSize}
 				onLoad={onImageLoad}/>
-			</ImageContainer>
-			<Transformations>
+			</styled.ImageContainer>
+			<styled.Transformations>
 				{photoTransformations && photoTransformations.map((t) =>
 					<Transformation key={t.name} {...t} photoId={exposedId}
-					                selected={t.name === photo.transformationName}/>)}
-			</Transformations>
-		</Container>
-	</Overlay>;
+					                selected={t.name === photo.transformationName}
+					                enableTransformation={enableTransformation}/>)}
+			</styled.Transformations>
+		</styled.Container>
+	</styled.Overlay>;
 };
 
 export default PhotoDrawer;
