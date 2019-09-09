@@ -6,7 +6,12 @@ import icons from "../icons";
 import Svg from "./Svg";
 import * as styled from "./GridPhoto.styled";
 
+//sel1
+//sel2
+//createstate
+
 const GridPhoto = ({ photo, style }) => {
+
 	const dispatch = useDispatch();
 	const isSelected = photo.selected;
 

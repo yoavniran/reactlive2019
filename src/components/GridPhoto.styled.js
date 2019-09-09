@@ -11,6 +11,7 @@ export const Container = styled(animated.div)`
 	position: relative;
 	cursor: pointer;
 	box-sizing: border-box;	
+	color: #FFF;
 	border: ${({ selected, exposed }) =>
 	(exposed ? "2px dotted #8995B8" :
 		selected ? "2px solid #61dafb" : "2px solid #282c34")};
