@@ -1,7 +1,11 @@
 import cld from "cloudinary-core";
+import { generateImageResponsiveAttributes } from "cloudinary/lib/utils/srcsetUtils";
+import {CLOUD} from "./consts";
+
+const BREAK_POINTS = 4;
 
 const cloudinary = new cld.Cloudinary({
-	cloud_name: "yoav-cloud",
+	cloud_name: CLOUD,
 	secure: true,
 });
 
@@ -31,9 +35,30 @@ const makeRequest = async (resource, method = "GET", body = null) => {
 const getCloudinaryUrl = (id, options = {}) =>
 	cloudinary.url(id, options);
 
+const getResponsiveAttributes = (id, min, max, transformation) => {
+	const sizes = new Array(BREAK_POINTS)
+		.fill(null)
+		.map((n, i) => `(max-width: ${min * (i + 1)}px) ${(min * (i + 1)) / 2}px`);
+
+	const srcset = generateImageResponsiveAttributes(id, {}, {
+		min_width: min,
+		max_width: max,
+		max_images: BREAK_POINTS,
+		transformation: { transformation },
+	}, {
+		cloud_name: CLOUD,
+	});
+
+	return {
+		...srcset,
+		sizes,
+	};
+};
+
 window.__url = getCloudinaryUrl;
 
 export {
 	makeRequest,
 	getCloudinaryUrl,
+	getResponsiveAttributes
 };
