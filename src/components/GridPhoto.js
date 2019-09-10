@@ -20,6 +20,7 @@ import * as styled from "./GridPhoto.styled";
 const GridPhoto = ({ photo, style }) => {
 
 	const dispatch = useDispatch();
+	//useselectedid
 	const isSelected = photo.selected;
 
 	const setSelected = () => {
