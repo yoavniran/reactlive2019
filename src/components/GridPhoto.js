@@ -12,6 +12,8 @@ import * as styled from "./GridPhoto.styled";
 
 //sel1
 //sel2
+
+
 //createstate
 
 //lazyloadedimg
