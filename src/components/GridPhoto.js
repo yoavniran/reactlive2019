@@ -1,18 +1,28 @@
 import React from "react";
-import { useDispatch , useSelector} from "react-redux";
+import { useDispatch } from "react-redux";
+import {createSelector} from "reselect";
 import actions from "../store/actions";
 import { TYPES } from "../consts";
 import icons from "../icons";
 import Svg from "./Svg";
 import * as styled from "./GridPhoto.styled";
 import { unstable_trace as trace } from "scheduler/tracing";
+import usePropsSelector from "../hooks/usePropsSelector";
 
 //impresponsive
 //implazyload
 
 
-//sel1
-//sel2
+const createHighlightedSelector = () => createSelector(
+	(state, id) =>
+		state.highlightedPhotoId === id,
+	(state, id) => id,
+
+	(isHighlighted, id) => {
+		console.log("!!! IS HIGHLIGHTED SELECTOR RUNNING !!!", id);
+		return isHighlighted;
+	},
+);
 
 //createstate
 
@@ -22,13 +32,7 @@ import { unstable_trace as trace } from "scheduler/tracing";
 const GridPhoto = ({ photo, style }) => {
 
 	const dispatch = useDispatch();
-	const isHighlighted =
-		useSelector((state) =>
-			state.highlightedPhotoId === photo.id);
-
-	//useLogHighlighted
-
-	//memohighlightselector
+	const isHighlighted = usePropsSelector(createHighlightedSelector, photo.id);
 
 	const setHighlighted = () => {
 
