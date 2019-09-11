@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import { useDispatch } from "react-redux";
 import {createSelector} from "reselect";
 import actions from "../store/actions";
@@ -8,10 +8,8 @@ import Svg from "./Svg";
 import * as styled from "./GridPhoto.styled";
 import { unstable_trace as trace } from "scheduler/tracing";
 import usePropsSelector from "../hooks/usePropsSelector";
-
-//impresponsive
-//implazyload
-
+import LazyLoad from "react-lazyload";
+import { getResponsiveAttributes } from "../api";
 
 const createHighlightedSelector = () => createSelector(
 	(state, id) =>
@@ -24,9 +22,15 @@ const createHighlightedSelector = () => createSelector(
 	},
 );
 
-//createstate
+const SUPPORTS_LOADING = "loading" in HTMLImageElement.prototype;
 
-//lazyloadedimg
+const LazyLoadedImage = (props) =>
+	SUPPORTS_LOADING ?
+		<styled.Image {...props}
+		              loading="lazy" width={180} height={120}/> :
+		<LazyLoad width={180} height={120}>
+			<styled.Image {...props} />
+		</LazyLoad>;
 
 
 const GridPhoto = ({ photo, style }) => {
@@ -51,14 +55,21 @@ const GridPhoto = ({ photo, style }) => {
 	const deletePhoto = () =>
 		dispatch(actions[TYPES.REMOVE_PHOTO]({ id: photo.id, }));
 
-	//respattrs
-
+	const respAttrs = useMemo(() => getResponsiveAttributes(
+		photo.id,
+		400,
+		800,
+		[{
+			crop: "fill",
+			dpr: 2,
+			quality: "auto",
+			fetchFormat: "auto"
+		}]), [photo.id]);
 
 	return <styled.Container hld={`${isHighlighted}`} style={style} className="grid-photo">
-		<styled.Image src={photo.exposedUrl || photo.url} onClick={setHighlighted}/>
-
-		{/*lazyimgprops*/}
-		{/*respimgprops*/}
+		<LazyLoadedImage
+			src={photo.exposedUrl || photo.url} onClick={setHighlighted}
+			sizes={respAttrs.sizes} srcSet={respAttrs.srcset} />
 
 		<styled.BottomBar>
 			<styled.BottomIcons>
