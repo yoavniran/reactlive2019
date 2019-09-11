@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { useSelector } from "react-redux";
 import PhotosGrid from "./PhotosGrid";
@@ -11,7 +11,7 @@ import * as styled from "./App.styled";
 const App = () => {
 	const exposedId = useSelector((state) => state.exposedPhotoId);
 
-	return (<div className="App">
+	return (<styled.Container>
 		<GlobalStyles/>
 		<Header/>
 		<styled.GridContainer>
@@ -21,7 +21,7 @@ const App = () => {
 			</InteractionProfiler>
 		</styled.GridContainer>
 		{exposedId && <PhotoDrawer exposedId={exposedId}/>}
-	</div>);
+	</styled.Container>);
 };
 
 export default App;

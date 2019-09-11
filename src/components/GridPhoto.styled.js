@@ -12,9 +12,22 @@ export const Container = styled(animated.div)`
 	cursor: pointer;
 	box-sizing: border-box;	
 	color: #FFF;
-	border: ${({ selected, exposed }) =>
+	border: ${({ hld, exposed }) =>
 	(exposed ? "2px dotted #8995B8" :
-		selected ? "2px solid #61dafb" : "2px solid #282c34")};
+		hld === "true" ? "2px solid #61dafb" : "2px solid #282c34")};
+	
+	@media (min-width: 900px) {
+		width: 230px;
+	}
+		
+	@media (max-width: 750px) {
+		width: 180px;
+	}
+
+	@media (max-width: 500px) {
+		width: 150px;
+	}
+
 `;
 
 export const BottomBar = styled.div`
@@ -32,8 +45,21 @@ export const Image = styled.img`
   display: block;
   max-width:230px;
   max-height:130px;
-  width: auto;
-  height: auto;
+  //width: auto;
+  //height: auto;
+  
+  @media (min-width: 900px) {
+		max-width: 230px;
+	}
+		
+	@media (max-width: 750px) {
+		max-width: 180px;
+	}
+
+	@media (max-width: 500px) {
+		max-width: 150px;
+	}
+  
 `;
 
 export const PhotoId = styled.div`

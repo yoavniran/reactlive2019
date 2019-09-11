@@ -47,11 +47,6 @@ const GlobalStyles = createGlobalStyle`
 		cursor: pointer;		
 	}
 
-	img {
-  		height: auto;
-  		max-width: 100%;
-	}
-
 	span {
   		font-style: inherit;
   		font-weight: inherit;

@@ -13,6 +13,7 @@ const onRender = (
 
 	if (interactions.size) {
 		const cyProfile = window._cyProfile = window._cyProfile || {};
+
 		interactions.forEach((i) => {
 			const name = i.name;
 			cyProfile[name] = cyProfile[name] || [];
@@ -27,13 +28,13 @@ const onRender = (
 	}
 };
 
-
-const InteractionProfiler = ({ profile, children }) =>
-	(profile || ENABLE_PROFILER) ? <Profiler
-		id={"PhotosGrid"} onRender={onRender}>
-		{children}
-	</Profiler> : <Fragment>
-		{children}
-	</Fragment>;
+const InteractionProfiler = ({ children }) =>
+	ENABLE_PROFILER ? <Profiler
+			id="PhotosGrid" onRender={onRender}>
+			{children}
+		</Profiler> :
+		<Fragment>
+			{children}
+		</Fragment>;
 
 export default InteractionProfiler;
