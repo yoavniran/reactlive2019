@@ -25,6 +25,8 @@ const GridPhoto = ({ photo, style }) => {
 	//useHighlighted
 	const isHighlighted = photo.highlighted;
 
+	//memohighlightselector
+
 	const setHighlighted = () => {
 		//distrace
 
