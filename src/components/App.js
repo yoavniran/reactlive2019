@@ -15,10 +15,12 @@ const App = () => {
 		<GlobalStyles/>
 		<Header/>
 		<styled.GridContainer>
-			{/*autosizer*/}
-			<InteractionProfiler>
-				<PhotosGrid/>
-			</InteractionProfiler>
+			<AutoSizer>
+				{({ height, width }) =>
+					<InteractionProfiler>
+						<PhotosGrid height={height} width={width}/>
+					</InteractionProfiler>}
+			</AutoSizer>
 		</styled.GridContainer>
 		{exposedId && <PhotoDrawer exposedId={exposedId}/>}
 	</styled.Container>);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import { useDispatch } from "react-redux";
 import {createSelector} from "reselect";
 import actions from "../store/actions";
@@ -8,6 +8,7 @@ import Svg from "./Svg";
 import * as styled from "./GridPhoto.styled";
 import { unstable_trace as trace } from "scheduler/tracing";
 import usePropsSelector from "../hooks/usePropsSelector";
+import {areEqual} from "react-window";
 
 //impresponsive
 //implazyload
@@ -74,4 +75,4 @@ const GridPhoto = ({ photo, style }) => {
 	</styled.Container>;
 };
 
-export default GridPhoto;
+export default memo(GridPhoto, areEqual);

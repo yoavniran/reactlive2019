@@ -3,21 +3,25 @@ import { useSelector, useDispatch } from "react-redux";
 import actions from "../store/actions";
 import { TYPES } from "../consts";
 import GridPhoto from "./GridPhoto";
-import Spinner from "./Spinner";
 import * as styled from "./PhotosGrid.styled";
-//impgrid
+import { FixedSizeGrid as Grid } from "react-window";
 
-//griditemindex
+const getItemIndex = (col, row, colCount) => ((row * colCount) + col);
 
-//griditemrenderer
+const GridItemRenderer = ({ style, columnIndex, rowIndex, data }) => {
+	const index = getItemIndex(columnIndex, rowIndex, data.colCount);
 
+	return index < data.photos.length && <GridPhoto photo={data.photos[index]}
+	                                                style={style}/>;
+};
 
 const PhotosGrid = ({width, height}) => {
 	const gridRef = useRef();
 	const dispatch = useDispatch();
 	const photos = useSelector((state) => state.photos);
 
-	//gridcounters
+	const colCount = Math.floor(width / 230),
+		rowCount = Math.ceil(photos.length / colCount);
 
 	useEffect(() => {
 		if (!photos.length) {
@@ -25,13 +29,29 @@ const PhotosGrid = ({width, height}) => {
 		}
 	}, [dispatch, photos]);
 
-	//griditemkey
+	const itemData = useMemo(
+		() => ({ colCount, photos }),
+		[colCount, photos]
+	);
+
+	const calculateItemKey = useCallback(({ columnIndex, data, rowIndex }) => {
+		const index = getItemIndex(columnIndex, rowIndex, data.colCount);
+		return photos[index] ? photos[index].id : "__last";
+	}, [photos]);
 
 	return <styled.Container>
-		{/* rendergrid */}
-		{photos.length ? photos.map((photo, index) =>
-				<GridPhoto key={index} photo={photo} />) :
-			<Spinner/>}
+		{photos.length ? <Grid
+					ref={gridRef}
+					columnCount={colCount}
+					columnWidth={230}
+					height={height}
+					rowCount={rowCount}
+					rowHeight={210}
+					width={width}
+					itemData={itemData}
+					itemKey={calculateItemKey}>
+					{GridItemRenderer}
+				</Grid> : null}
 	</styled.Container>;
 };
 
