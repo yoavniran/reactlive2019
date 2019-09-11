@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
 import actions from "../store/actions";
 import { TYPES } from "../consts";
 import icons from "../icons";
@@ -22,8 +22,9 @@ import { unstable_trace as trace } from "scheduler/tracing";
 const GridPhoto = ({ photo, style }) => {
 
 	const dispatch = useDispatch();
-	//useHighlighted
-	const isHighlighted = photo.highlighted;
+	const isHighlighted =
+		useSelector((state) =>
+			state.highlightedPhotoId === photo.id);
 
 	//useLogHighlighted
 
