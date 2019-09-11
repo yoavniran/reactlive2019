@@ -5,6 +5,7 @@ import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
 import PhotoDrawer from "./PhotoDrawer";
 import * as styled from "./App.styled";
+import InteractionProfiler from "./InteractionProfiler";
 
 const App = () => {
 	const exposedId = useSelector((state) => state.exposedPhotoId);
@@ -12,7 +13,9 @@ const App = () => {
 	return (<styled.Container>
 		<GlobalStyles/>
 		<Header/>
-		<PhotosGrid/>
+		<InteractionProfiler>
+			<PhotosGrid/>
+		</InteractionProfiler>
 		{exposedId && <PhotoDrawer exposedId={exposedId}/>}
 	</styled.Container>);
 };

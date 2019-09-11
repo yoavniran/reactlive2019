@@ -5,7 +5,7 @@ import { TYPES } from "../consts";
 import icons from "../icons";
 import Svg from "./Svg";
 import * as styled from "./GridPhoto.styled";
-//imptrace
+import { unstable_trace as trace } from "scheduler/tracing";
 
 //impresponsive
 //implazyload
@@ -30,12 +30,12 @@ const GridPhoto = ({ photo, style }) => {
 	//memohighlightselector
 
 	const setHighlighted = () => {
-		//distrace
 
-		dispatch(actions[TYPES.SET_HIGHLIGHTED_PHOTO]({
-			id: photo.id,
-			highlighted: !isHighlighted,
-		}));
+		trace(TYPES.SET_HIGHLIGHTED_PHOTO, performance.now(), () =>
+			dispatch(actions[TYPES.SET_HIGHLIGHTED_PHOTO]({
+				id: photo.id,
+				highlighted: !isHighlighted,
+			})));
 	};
 
 	const setExposed = () =>
