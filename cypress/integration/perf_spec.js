@@ -19,7 +19,7 @@ describe("reactlive2019 - perf test", () => {
 					.click()
 					.should(() => {
 
-						const events = win._cyProfile[TYPES.SET_SELECTED_PHOTO];
+						const events = win._cyProfile[TYPES.SET_HIGHLIGHTED_PHOTO];
 
 						expect(events[0].actualDuration)
 							.to.be.at.most(INTERACTION_MAX);
