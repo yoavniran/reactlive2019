@@ -12,11 +12,11 @@ export default createReducer(initialState, {
 		draft.nextCursor = payload.nextCursor;
 	},
 
-	[TYPES.SET_SELECTED_PHOTO]: (draft, { payload }) => {
+	[TYPES.SET_HIGHLIGHTED_PHOTO]: (draft, { payload }) => {
 		const photo = findPhoto(draft, payload.id);
 
 		if (photo) {
-			photo.selected = payload.selected;
+			photo.highlighted = payload.highlighted;
 		}
 	},
 

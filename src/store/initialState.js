@@ -9,7 +9,7 @@ export default {
 	tagsFilter: [],
 
 	exposedPhotoId: null,
-	selectedPhotoId: null,
+	highlightedPhotoId: null,
 
 	transformations: {}
 };

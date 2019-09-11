@@ -22,15 +22,15 @@ import * as styled from "./GridPhoto.styled";
 const GridPhoto = ({ photo, style }) => {
 
 	const dispatch = useDispatch();
-	//useselectedid
-	const isSelected = photo.selected;
+	//useHighlighted
+	const isHighlighted = photo.highlighted;
 
-	const setSelected = () => {
+	const setHighlighted = () => {
 		//distrace
 
-		dispatch(actions[TYPES.SET_SELECTED_PHOTO]({
+		dispatch(actions[TYPES.SET_HIGHLIGHTED_PHOTO]({
 			id: photo.id,
-			selected: !isSelected,
+			highlighted: !isHighlighted,
 		}));
 	};
 
@@ -45,16 +45,16 @@ const GridPhoto = ({ photo, style }) => {
 	//respattrs
 
 
-	return <styled.Container selected={isSelected} style={style} className="grid-photo">
-		<styled.Image src={photo.exposedUrl || photo.url} onClick={setSelected}/>
+	return <styled.Container hld={`${isHighlighted}`} style={style} className="grid-photo">
+		<styled.Image src={photo.exposedUrl || photo.url} onClick={setHighlighted}/>
 
 		{/*respimgprops*/}
 
 		<styled.BottomBar>
 			<styled.BottomIcons>
 				<Svg path={icons.check}
-				     fill={isSelected ? "#FB851A" : "#E1E1E1"}
-				     onClick={setSelected}/>
+				     fill={isHighlighted ? "#FB851A" : "#E1E1E1"}
+				     onClick={setHighlighted}/>
 				<Svg path={icons.delete} fill="#FB851A" onClick={deletePhoto}/>
 				<Svg path={icons.zoom} fill="#FB851A" onClick={setExposed}/>
 			</styled.BottomIcons>

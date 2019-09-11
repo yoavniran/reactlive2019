@@ -12,9 +12,9 @@ export const Container = styled(animated.div)`
 	cursor: pointer;
 	box-sizing: border-box;	
 	color: #FFF;
-	border: ${({ selected, exposed }) =>
+	border: ${({ hld, exposed }) =>
 	(exposed ? "2px dotted #8995B8" :
-		selected ? "2px solid #61dafb" : "2px solid #282c34")};
+		hld === "true" ? "2px solid #61dafb" : "2px solid #282c34")};
 	
 	@media (min-width: 900px) {
 		width: 230px;
