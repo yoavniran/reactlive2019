@@ -52,6 +52,7 @@ const GridPhoto = ({ photo, style }) => {
 	return <styled.Container hld={`${isHighlighted}`} style={style} className="grid-photo">
 		<styled.Image src={photo.exposedUrl || photo.url} onClick={setHighlighted}/>
 
+		{/*lazyimgprops*/}
 		{/*respimgprops*/}
 
 		<styled.BottomBar>
