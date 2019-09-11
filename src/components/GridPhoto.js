@@ -5,14 +5,14 @@ import { TYPES } from "../consts";
 import icons from "../icons";
 import Svg from "./Svg";
 import * as styled from "./GridPhoto.styled";
-//impresponsive
+//imptrace
 
+//impresponsive
 //implazyload
 
 
 //sel1
 //sel2
-
 
 //createstate
 
