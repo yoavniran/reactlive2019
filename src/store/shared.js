@@ -11,7 +11,7 @@ const getGridPhotoUrl = (id) =>
 
 const processPhotos = (photos) =>
 	photos.map((p) => ({
-		selected: false,
+		highlighted: false,
 		url: getGridPhotoUrl(p.public_id),
 		id: p.public_id,
 		transformationName: null,

@@ -14,9 +14,15 @@ export default createReducer(Immutable(initialState), {
 			nextCursor: payload.nextCursor,
 		}),
 
-	[TYPES.SET_SELECTED_PHOTO]: (state, { payload }) => {
-		return state.set("selectedPhotoId", payload.selected ? payload.id : null);
+	[TYPES.SET_HIGHLIGHTED_PHOTO]: (state, { payload }) => {
+		const index = getPhotoIndex(state, payload.id);
+
+		return state.setIn(
+			["photos", index, "highlighted"],
+			payload.highlighted);
 	},
+
+	//immhighlight
 
 	[TYPES.SET_EXPOSED_PHOTO]: (state, { payload }) => {
 		state = state.set("exposedPhotoId", payload.id);
