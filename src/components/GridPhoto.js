@@ -18,8 +18,7 @@ const createHighlightedSelector = () => createSelector(
 		state.highlightedPhotoId === id,
 	(state, id) => id,
 
-	(isHighlighted, id) => {
-		console.log("!!! IS HIGHLIGHTED SELECTOR RUNNING !!!", id);
+	(isHighlighted) => {
 		return isHighlighted;
 	},
 );
