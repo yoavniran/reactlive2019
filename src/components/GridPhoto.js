@@ -20,14 +20,15 @@ import * as styled from "./GridPhoto.styled";
 
 
 const GridPhoto = ({ photo, style }) => {
-
 	const dispatch = useDispatch();
+
+	//memohighlightselector
+
 	//useHighlighted
 	const isHighlighted = photo.highlighted;
 
 	//useLogHighlighted
 
-	//memohighlightselector
 
 	const setHighlighted = () => {
 		//distrace
