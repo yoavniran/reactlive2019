@@ -8,16 +8,14 @@ import * as styled from "./GridPhoto.styled";
 //imptrace
 
 //impresponsive
-//implazyload
+
+//lazyloadedimg
 
 
 //sel1
 //sel2
 
 //createstate
-
-//lazyloadedimg
-
 
 const GridPhoto = ({ photo, style }) => {
 	const dispatch = useDispatch();
@@ -47,11 +45,16 @@ const GridPhoto = ({ photo, style }) => {
 	const deletePhoto = () =>
 		dispatch(actions[TYPES.REMOVE_PHOTO]({ id: photo.id, }));
 
+	const onImageLoad = (e) => {
+		e.target.classList.add("w-auto")
+	};
+
 	//respattrs
 
 
 	return <styled.Container hld={`${isHighlighted}`} style={style} className="grid-photo">
 		<styled.Image
+			onLoad={onImageLoad}
 			src={photo.exposedUrl || photo.url} onClick={setHighlighted}/>
 
 		{/*lazyimgprops*/}

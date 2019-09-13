@@ -48,6 +48,10 @@ export const Image = styled.img`
   //width: auto;
   //height: auto;
   
+  &.w-auto {
+  	width: auto;
+  }
+  
   @media (min-width: 900px) {
 		max-width: 230px;
 	}
