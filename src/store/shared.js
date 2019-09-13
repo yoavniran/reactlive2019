@@ -1,9 +1,10 @@
 import { getCloudinaryUrl } from "../api";
+import {ENABLE_PROFILER} from "../common/utils";
 
 const getGridPhotoUrl = (id) =>
 	getCloudinaryUrl(id, {
 		crop: "fill",
-		width: 230,
+		width: ENABLE_PROFILER ? 120 : 230,
 		dpr: 2,
 		quality: "auto",
 		fetchFormat: "auto",
