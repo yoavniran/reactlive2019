@@ -8,7 +8,7 @@
     "cloudinary-core": "^2.7.4",
     "cypress": "^3.4.1",
     "immer": "^3.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "memoize-state": "^2.0.8",
     "react": "^16.9.0",
     "react-cache": "^2.0.0-alpha.1",
